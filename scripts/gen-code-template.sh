@@ -193,6 +193,27 @@ class _State extends ConsumerState<${nameClass}Widget> {
 END
 )
 
+templatePage=$(
+  cat <<END
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ${nameClass}Page extends ConsumerStatefulWidget {
+  const ${nameClass}Page({super.key});
+  @override
+  ConsumerState<${nameClass}Page> createState() => _State();
+}
+
+class _State extends ConsumerState<${nameClass}Page> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+END
+)
+
 templateUiState=$(
   cat <<END
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -261,7 +282,7 @@ elif [ "$layer" = "usecase" ]; then
   folder="$domainUseCasesFolder"
   fileName="${name}_usecase.dart"
 elif [ "$layer" = "page" ]; then
-  template="$templateWidget"
+  template="$templatePage"
   folder="$uiPresentationWidgetFolder"
   fileName="${name}_page.dart"
 elif [ "$layer" = "widget" ]; then
